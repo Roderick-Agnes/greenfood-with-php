@@ -1,4 +1,5 @@
 <?php
+    include_once("libs/curl-helper.php");
     $fullname = $email = $phone = $sex = $address = $username = $password = '';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fullname = $_POST["fullname"];
@@ -12,13 +13,16 @@
         
         
     }
-    $method = "POST";
-    $url = "http://localhost/greenfood/api/categories.php";
-    $parameters = array(
-        "action" => "getCategoryList"
-    );
-    $result = CurlHelper::perform_http_request($method, $url, $parameters);
-    echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
+    if($_POST) {
+        $method = "POST";
+        $url = "http://localhost/greenfood-with-php/server/api/categories.php";
+        $parameters = array(
+            "action" => "getCategoryList"
+        );
+        $result = CurlHelper::perform_http_request($method, $url, $parameters);
+        echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    }
+    
 
 
 ?>

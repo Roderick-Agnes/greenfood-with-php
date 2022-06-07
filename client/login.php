@@ -1,8 +1,8 @@
 <?php
   // Start the session
   session_start();
-  include_once("core/libs/curl-helper.php");
-  include_once("core/register-core.php");
+  
+  
 ?>
 
 <!DOCTYPE html>
@@ -81,8 +81,8 @@
               role="tabpanel"
               aria-labelledby="login-tab"
             >
-              <form >
-              <!-- Email input -->
+              <form action="core/login-core.php" method="post" enctype="multipart/form-data">
+              <!-- Username input -->
               <div class="form-outline mb-4">
                 <input type="text" id="form1Example13" name="username" class="form-control form-control-lg" />
                 <label class="form-label" for="form1Example13">Username</label>
@@ -104,7 +104,7 @@
               </div>
 
               <!-- Submit button -->
-              <button type="submit" id="sign-in-button" class="btn btn-primary btn-lg btn-block">Sign in</button>
+              <button type="submit" onclick="handleSignIn()" id="sign-in-button" class="btn btn-primary btn-lg btn-block">Sign in</button>
               <div class="divider d-flex align-items-center my-4">
                 <p class="text-center fw-bold mx-3 mb-0 text-muted w-100">OR</p>
               </div>
@@ -201,12 +201,25 @@
     ></script>
 
     <script type="text/javascript">
+      let tabNameDefault = 'login-tab';
+      const signInButton = document.getElementById("sign-in-button");
       function handleTabClick(clicked_id)
       {
+        tabNameDefault = clicked_id;
           sessionStorage.setItem("tabName", clicked_id);
           //alert(sessionStorage.getItem("tabName"));
+          console.log(tabNameDefault);
+          
           
       }
+      function handleSignIn() {
+        if(tabNameDefault === 'login-tab') {
+            <?php include_once("core/login-core.php") ?>
+          } else {
+            <?php include_once("core/register-core.php") ?>
+          }
+      }
+      
       
       
     </script>
