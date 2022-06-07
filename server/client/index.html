@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+        var data = {
+            'action': 'getFoodList',
+            'id' : 3
+        };
+        console.log(JSON.stringify(data));
+        const response = fetch(BASE_URL + API_GET_FOOD_LIST, {
+            method: 'POST',
+            mode: 'cors', 
+            cache: 'no-cache', 
+            credentials: 'same-origin',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then( 
+            resp => resp.json() // this returns a promise
+        ).then(repos => {
+            
+            for (const repo of repos.data) {
+                console.log(repo.foodName);
+            }
+        }).catch(ex => {
+             console.error(ex);
+           })
+        });
+
+    </script>
+</body>
+</html>
